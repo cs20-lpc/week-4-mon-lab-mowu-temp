@@ -15,6 +15,10 @@ class LinkedList : public List<T> {
 
             Node(T v = T(), Node* n = nullptr)
             : value(v), next(n) { }
+            
+            ~Node() {
+                delete next;
+            }
         };
 
         // a pointer to the front of the list

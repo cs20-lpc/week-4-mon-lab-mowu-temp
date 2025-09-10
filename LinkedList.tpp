@@ -1,6 +1,8 @@
 template <typename T>
 LinkedList<T>::LinkedList()
-: head(nullptr) { }
+: head(nullptr) { 
+    this->length = 0;
+}
 
 template <typename T>
 LinkedList<T>::~LinkedList() {
@@ -9,17 +11,38 @@ LinkedList<T>::~LinkedList() {
 
 template <typename T>
 void LinkedList<T>::append(const T& elem) {
-    // TODO
+    Node* newNode = new Node(elem, nullptr);
+    if (head == nullptr){
+        head = newNode;
+    } else {
+        Node* current = head;
+        while(current->next != nullptr){
+            current = current->next;
+        }
+        current->next = newNode;
+    }
+    this->length += 1;
 }
 
 template <typename T>
 void LinkedList<T>::clear() {
-    // TODO
+    delete head;
+    head = nullptr;
+    this->length = 0;
 }
 
 template <typename T>
 T LinkedList<T>::getElement(int position) const {
-    // TODO
+    if (position < 0 || position >= this->length) {
+        throw string("Out of bounds at getElement");
+    } else {
+        Node* current = head;
+        for (int i = 0; i < position; i++) {
+            current = current->next;
+        }
+        return current->value;
+    }
+
 }
 
 template <typename T>
@@ -34,7 +57,15 @@ bool LinkedList<T>::isEmpty() const {
 
 template <typename T>
 void LinkedList<T>::replace(int position, const T& elem) {
-    // TODO
+    if ((position < 0) || (position >= this->length)) {
+        throw string("Out of bounds at replace");
+    } else {
+        Node* current = head;
+        for (int i = 0; i < position; i++) {
+            current = current->next;
+        }
+        current->value = elem;
+    }
 }
 
 template <typename T>
